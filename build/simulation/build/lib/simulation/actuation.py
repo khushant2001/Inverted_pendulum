@@ -8,8 +8,9 @@ import math
 class actuation(Node):
     def __init__(self):
         super().__init__("Actuation")
-        self.tf = self.create_subscription(TFMessage,"/tf",self.pendulum_pose)
-        self.actuation = self.create_publisher(JointState,"/joint_states",self.control)
+        qos_profile = QoSProfile(depth=10)
+        self.tf = self.create_subscription(TFMessage,"/tf",self.pendulum_pose,qos_profile)
+        self.actuation = self.create_publisher(JointState,"/joint_states",self.control, qos_profile)
         self.roll_angle = None
 
     def control(self):

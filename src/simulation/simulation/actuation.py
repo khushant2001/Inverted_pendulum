@@ -3,13 +3,15 @@ from rclpy.node import Node
 from rclpy.qos import QoSProfile
 from sensor_msgs.msg import JointState
 from tf2_msgs.msg import TFMessage
+from rclpy.qos import QoSProfile, QoSReliabilityPolicy, QoSHistoryPolicy
 import math
 
 class actuation(Node):
     def __init__(self):
         super().__init__("Actuation")
-        self.tf = self.create_subscription(TFMessage,"/tf",self.pendulum_pose)
-        self.actuation = self.create_publisher(JointState,"/joint_states",self.control)
+        qos_profil = QoSProfile(depth=10)
+        self.tf = self.create_subscription(TFMessage,'tf',self.pendulum_pose,qos_profile=qos_profil)
+        self.actuation = self.create_publisher(JointState,'joint_states',qos_profile=qos_profil)
         self.roll_angle = None
 
     def control(self):

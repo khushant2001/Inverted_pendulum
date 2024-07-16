@@ -1,0 +1,25 @@
+[1.546s] Invoking command in '/home/khushant/Inverted_pendulum/src/simulation': PYTHONPATH=/home/khushant/Inverted_pendulum/build/simulation/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/khushant/Inverted_pendulum/install/simulation/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/simulation build --build-base /home/khushant/Inverted_pendulum/build/simulation/build install --record /home/khushant/Inverted_pendulum/build/simulation/install.log --single-version-externally-managed install_data
+[2.109s] running egg_info
+[2.109s] writing ../../build/simulation/simulation.egg-info/PKG-INFO
+[2.110s] writing dependency_links to ../../build/simulation/simulation.egg-info/dependency_links.txt
+[2.110s] writing entry points to ../../build/simulation/simulation.egg-info/entry_points.txt
+[2.111s] writing requirements to ../../build/simulation/simulation.egg-info/requires.txt
+[2.111s] writing top-level names to ../../build/simulation/simulation.egg-info/top_level.txt
+[2.114s] reading manifest file '../../build/simulation/simulation.egg-info/SOURCES.txt'
+[2.114s] adding license file 'LICENSE'
+[2.115s] writing manifest file '../../build/simulation/simulation.egg-info/SOURCES.txt'
+[2.115s] running build
+[2.115s] running build_py
+[2.116s] copying simulation/actuation.py -> /home/khushant/Inverted_pendulum/build/simulation/build/lib/simulation
+[2.116s] running install
+[2.117s] running install_lib
+[2.118s] copying /home/khushant/Inverted_pendulum/build/simulation/build/lib/simulation/actuation.py -> /home/khushant/Inverted_pendulum/install/simulation/lib/python3.10/site-packages/simulation
+[2.120s] byte-compiling /home/khushant/Inverted_pendulum/install/simulation/lib/python3.10/site-packages/simulation/actuation.py to actuation.cpython-310.pyc
+[2.122s] running install_data
+[2.122s] running install_egg_info
+[2.126s] removing '/home/khushant/Inverted_pendulum/install/simulation/lib/python3.10/site-packages/simulation-0.0.0-py3.10.egg-info' (and everything under it)
+[2.126s] Copying ../../build/simulation/simulation.egg-info to /home/khushant/Inverted_pendulum/install/simulation/lib/python3.10/site-packages/simulation-0.0.0-py3.10.egg-info
+[2.127s] running install_scripts
+[2.169s] Installing controller script to /home/khushant/Inverted_pendulum/install/simulation/lib/simulation
+[2.169s] writing list of installed files to '/home/khushant/Inverted_pendulum/build/simulation/install.log'
+[2.205s] Invoked command in '/home/khushant/Inverted_pendulum/src/simulation' returned '0': PYTHONPATH=/home/khushant/Inverted_pendulum/build/simulation/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/khushant/Inverted_pendulum/install/simulation/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/simulation build --build-base /home/khushant/Inverted_pendulum/build/simulation/build install --record /home/khushant/Inverted_pendulum/build/simulation/install.log --single-version-externally-managed install_data

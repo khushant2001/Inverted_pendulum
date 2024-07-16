@@ -30,7 +30,7 @@ def generate_launch_description():
             arguments=[urdf]),
         Node(
             package='simulation',
-            executable='actuation',
+            executable='controller',
             name='actuation',
             output='screen'),
     ])
