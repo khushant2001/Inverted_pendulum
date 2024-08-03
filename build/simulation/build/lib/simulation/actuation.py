@@ -3,14 +3,17 @@ from rclpy.node import Node
 from rclpy.qos import QoSProfile
 from sensor_msgs.msg import JointState
 from tf2_msgs.msg import TFMessage
+from rclpy.qos import QoSProfile, QoSReliabilityPolicy, QoSHistoryPolicy
 import math
 
 class actuation(Node):
     def __init__(self):
         super().__init__("Actuation")
-        qos_profile = QoSProfile(depth=10)
-        self.tf = self.create_subscription(TFMessage,"/tf",self.pendulum_pose,qos_profile)
-        self.actuation = self.create_publisher(JointState,"/joint_states",self.control, qos_profile)
+        qos_profil = QoSProfile(depth=10)
+        self.tf = self.create_subscription(TFMessage,'tf',self.pendulum_pose,qos_profile=qos_profil)
+        self.actuation = self.create_publisher(JointState,'joint_states',qos_profile=qos_profil)
+        timer_period = 0.5
+        self.timer = self.create_timer(timer_period, self.control)
         self.roll_angle = None
 
     def control(self):
@@ -21,7 +24,12 @@ class actuation(Node):
 
     def pendulum_pose(self,msg:TFMessage):
         self.get_logger().info("Getting the pose of the pendulum!")
-        print(msg._transforms)
+        x = msg.transforms[1].transform.rotation._x
+        y = msg.transforms[1].transform.rotation._y
+        z = msg.transforms[1].transform.rotation._z
+        w = msg.transforms[1].transform.rotation._w
+        [roll, pitch, yaw] = quaternion_to_euler(x,y,z,w)
+        self.roll_angle = roll
 
 # Defining the translation from quaternion to euler!
 

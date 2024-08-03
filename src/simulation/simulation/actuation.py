@@ -12,17 +12,26 @@ class actuation(Node):
         qos_profil = QoSProfile(depth=10)
         self.tf = self.create_subscription(TFMessage,'tf',self.pendulum_pose,qos_profile=qos_profil)
         self.actuation = self.create_publisher(JointState,'joint_states',qos_profile=qos_profil)
+        timer_period = 0.3
+        self.timer = self.create_timer(timer_period, self.control)
         self.roll_angle = None
 
     def control(self):
-        self.get_logger().info("Giving actuation to the pendulum!")
         msg = JointState()
-        print(msg._velocity)
-        #self.actuation.publish(msg)
+        msg.name = ['central_piece_joint','pendulum_joint']
+        msg._effort = [0.0,1.0]
+        self.get_logger().info(str(msg))
+        self.actuation.publish(msg)
 
     def pendulum_pose(self,msg:TFMessage):
         self.get_logger().info("Getting the pose of the pendulum!")
-        print(msg._transforms)
+        x = msg.transforms[1].transform.rotation._x
+        y = msg.transforms[1].transform.rotation._y
+        z = msg.transforms[1].transform.rotation._z
+        w = msg.transforms[1].transform.rotation._w
+        [roll, pitch, yaw] = quaternion_to_euler(x,y,z,w)
+        #print(roll)
+        self.roll_angle = roll
 
 # Defining the translation from quaternion to euler!
 
