@@ -12,16 +12,20 @@ class actuation(Node):
         qos_profil = QoSProfile(depth=10)
         self.tf = self.create_subscription(TFMessage,'tf',self.pendulum_pose,qos_profile=qos_profil)
         self.actuation = self.create_publisher(JointState,'joint_states',qos_profile=qos_profil)
-        timer_period = 0.3
+        timer_period = 0.1
         self.timer = self.create_timer(timer_period, self.control)
         self.roll_angle = None
 
     def control(self):
         msg = JointState()
+        now = self.get_clock().now()
+        msg.header.stamp = now.to_msg()
         msg.name = ['central_piece_joint','pendulum_joint']
-        msg._effort = [0.0,1.0]
-        self.get_logger().info(str(msg))
+        msg.position = [math.sin(self.get_clock().now().seconds_nanoseconds()[0]),0.0]
+        msg.velocity = [100.0, 100.0]
+        msg.effort = [100.0,100.0]
         self.actuation.publish(msg)
+        self.get_logger().info("Actuating")
 
     def pendulum_pose(self,msg:TFMessage):
         self.get_logger().info("Getting the pose of the pendulum!")
