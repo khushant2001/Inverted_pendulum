@@ -19,5 +19,5 @@ simulation.egg-info/entry_points.txt
 simulation.egg-info/requires.txt
 simulation.egg-info/top_level.txt
 simulation.egg-info/zip-safe
+urdf/model.sdf
 urdf/model.urdf
-urdf/r2d2.rviz

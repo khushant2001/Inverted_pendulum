@@ -13,22 +13,26 @@ def generate_launch_description():
     use_sim_time = LaunchConfiguration('use_sim_time', default='false')
 
     urdf_file_name = 'model.urdf'
+    sdf_file_name = 'model.sdf'
     urdf = os.path.join(
         get_package_share_directory('simulation'),
         urdf_file_name)
+    sdf = os.path.join(
+        get_package_share_directory('simulation'),
+        sdf_file_name)
     with open(urdf, 'r') as infp:
         robot_desc = infp.read()
 
     return LaunchDescription([
         
-        ExecuteProcess(
-            cmd=['gz', 'sim', '--verbose'],
-            output='screen'
-        ),
+        # ExecuteProcess(
+        #     cmd=['gz', 'sim'],
+        #     output='screen'
+        # ),
     
         # Spawn the robot in Ignition Gazebo
         ExecuteProcess(
-            cmd=['gz', 'spawn', '-file', urdf, '-entity', 'my_robot'],
+            cmd=['gz', 'sim', sdf],
             output='screen'
         ),
 

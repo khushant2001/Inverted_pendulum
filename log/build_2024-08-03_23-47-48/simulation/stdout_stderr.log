@@ -1,0 +1,16 @@
+running develop
+running egg_info
+writing simulation.egg-info/PKG-INFO
+writing dependency_links to simulation.egg-info/dependency_links.txt
+writing entry points to simulation.egg-info/entry_points.txt
+writing requirements to simulation.egg-info/requires.txt
+writing top-level names to simulation.egg-info/top_level.txt
+reading manifest file 'simulation.egg-info/SOURCES.txt'
+writing manifest file 'simulation.egg-info/SOURCES.txt'
+running build_ext
+Creating /home/khushant/Inverted_pendulum/install/simulation/lib/python3.10/site-packages/simulation.egg-link (link to .)
+Installing controller script to /home/khushant/Inverted_pendulum/install/simulation/lib/simulation
+
+Installed /home/khushant/Inverted_pendulum/build/simulation
+running symlink_data
+error: can't copy '/home/khushant/Inverted_pendulum/build/simulation/urdf/my_sdf.sdf': doesn't exist or not a regular file

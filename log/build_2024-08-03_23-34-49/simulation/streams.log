@@ -1,0 +1,19 @@
+[1.573s] Invoking command in '/home/khushant/Inverted_pendulum/build/simulation': PYTHONPATH=/home/khushant/Inverted_pendulum/build/simulation/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/khushant/Inverted_pendulum/install/simulation/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py develop --editable --build-directory /home/khushant/Inverted_pendulum/build/simulation/build --no-deps symlink_data
+[2.197s] running develop
+[2.509s] running egg_info
+[2.509s] writing simulation.egg-info/PKG-INFO
+[2.510s] writing dependency_links to simulation.egg-info/dependency_links.txt
+[2.510s] writing entry points to simulation.egg-info/entry_points.txt
+[2.511s] writing requirements to simulation.egg-info/requires.txt
+[2.511s] writing top-level names to simulation.egg-info/top_level.txt
+[2.514s] reading manifest file 'simulation.egg-info/SOURCES.txt'
+[2.516s] writing manifest file 'simulation.egg-info/SOURCES.txt'
+[2.521s] running build_ext
+[2.521s] Creating /home/khushant/Inverted_pendulum/install/simulation/lib/python3.10/site-packages/simulation.egg-link (link to .)
+[2.522s] Installing controller script to /home/khushant/Inverted_pendulum/install/simulation/lib/simulation
+[2.522s] 
+[2.523s] Installed /home/khushant/Inverted_pendulum/build/simulation
+[2.523s] running symlink_data
+[2.523s] symbolically linking /home/khushant/Inverted_pendulum/build/simulation/urdf/my_sdf.sdf -> /home/khushant/Inverted_pendulum/install/simulation/share/simulation
+[2.523s] symbolically linking /home/khushant/Inverted_pendulum/build/simulation/urdf/my_sdf.sdf:Zone.Identifier -> /home/khushant/Inverted_pendulum/install/simulation/share/simulation
+[2.560s] Invoked command in '/home/khushant/Inverted_pendulum/build/simulation' returned '0': PYTHONPATH=/home/khushant/Inverted_pendulum/build/simulation/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/khushant/Inverted_pendulum/install/simulation/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py develop --editable --build-directory /home/khushant/Inverted_pendulum/build/simulation/build --no-deps symlink_data
