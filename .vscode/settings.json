@@ -163,5 +163,6 @@
         "/home/khushant/ros2_iron/install/ament_clang_tidy/lib/python3.10/site-packages",
         "/home/khushant/ros2_iron/install/ament_clang_format/lib/python3.10/site-packages",
         "/opt/ros/iron/lib/python3.10/site-packages"
-    ]
+    ],
+    "ros.distro": "iron"
 }

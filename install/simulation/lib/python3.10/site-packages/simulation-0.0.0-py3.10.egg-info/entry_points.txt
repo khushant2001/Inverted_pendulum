@@ -1,0 +1,3 @@
+[console_scripts]
+controller = simulation.actuation:main
+

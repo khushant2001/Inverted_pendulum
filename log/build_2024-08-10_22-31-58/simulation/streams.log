@@ -1,0 +1,18 @@
+[1.706s] Invoking command in '/home/khushant/Inverted_pendulum/build/simulation': PYTHONPATH=/home/khushant/Inverted_pendulum/build/simulation/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/khushant/Inverted_pendulum/install/simulation/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py develop --editable --build-directory /home/khushant/Inverted_pendulum/build/simulation/build --no-deps symlink_data
+[2.362s] running develop
+[2.728s] running egg_info
+[2.728s] writing simulation.egg-info/PKG-INFO
+[2.729s] writing dependency_links to simulation.egg-info/dependency_links.txt
+[2.731s] writing entry points to simulation.egg-info/entry_points.txt
+[2.732s] writing requirements to simulation.egg-info/requires.txt
+[2.732s] writing top-level names to simulation.egg-info/top_level.txt
+[2.737s] reading manifest file 'simulation.egg-info/SOURCES.txt'
+[2.738s] writing manifest file 'simulation.egg-info/SOURCES.txt'
+[2.745s] running build_ext
+[2.745s] Creating /home/khushant/Inverted_pendulum/install/simulation/lib/python3.10/site-packages/simulation.egg-link (link to .)
+[2.747s] Installing controller script to /home/khushant/Inverted_pendulum/install/simulation/lib/simulation
+[2.751s] 
+[2.751s] Installed /home/khushant/Inverted_pendulum/build/simulation
+[2.751s] running symlink_data
+[2.751s] symbolically linking /home/khushant/Inverted_pendulum/build/simulation/urdf/bridge.yaml -> /home/khushant/Inverted_pendulum/install/simulation/share/simulation
+[2.797s] Invoked command in '/home/khushant/Inverted_pendulum/build/simulation' returned '0': PYTHONPATH=/home/khushant/Inverted_pendulum/build/simulation/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/khushant/Inverted_pendulum/install/simulation/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py develop --editable --build-directory /home/khushant/Inverted_pendulum/build/simulation/build --no-deps symlink_data

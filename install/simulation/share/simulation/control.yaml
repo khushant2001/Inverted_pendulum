@@ -1,0 +1,13 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 100
+
+    joint_state_controller:
+      type: joint_state_controller/JointStateController
+      publish_rate: 50
+
+    forward_velocity_controller:
+      type: velocity_controllers/JointGroupVelocityController
+      joints:
+        - central_piece_joint
+        - pendulum_joint
