@@ -1,0 +1,17 @@
+[0.823s] Invoking command in '/home/khushant/Inverted_pendulum/build/simulation': PYTHONPATH=/home/khushant/Inverted_pendulum/build/simulation/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/khushant/Inverted_pendulum/install/simulation/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py develop --editable --build-directory /home/khushant/Inverted_pendulum/build/simulation/build --no-deps symlink_data
+[1.141s] running develop
+[1.319s] running egg_info
+[1.319s] writing simulation.egg-info/PKG-INFO
+[1.320s] writing dependency_links to simulation.egg-info/dependency_links.txt
+[1.320s] writing entry points to simulation.egg-info/entry_points.txt
+[1.320s] writing requirements to simulation.egg-info/requires.txt
+[1.320s] writing top-level names to simulation.egg-info/top_level.txt
+[1.321s] reading manifest file 'simulation.egg-info/SOURCES.txt'
+[1.322s] writing manifest file 'simulation.egg-info/SOURCES.txt'
+[1.324s] running build_ext
+[1.324s] Creating /home/khushant/Inverted_pendulum/install/simulation/lib/python3.10/site-packages/simulation.egg-link (link to .)
+[1.325s] Installing controller script to /home/khushant/Inverted_pendulum/install/simulation/lib/simulation
+[1.325s] 
+[1.325s] Installed /home/khushant/Inverted_pendulum/build/simulation
+[1.325s] running symlink_data
+[1.348s] Invoked command in '/home/khushant/Inverted_pendulum/build/simulation' returned '0': PYTHONPATH=/home/khushant/Inverted_pendulum/build/simulation/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/khushant/Inverted_pendulum/install/simulation/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py develop --editable --build-directory /home/khushant/Inverted_pendulum/build/simulation/build --no-deps symlink_data

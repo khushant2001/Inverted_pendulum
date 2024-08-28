@@ -1,0 +1,21 @@
+running develop
+running egg_info
+writing simulation.egg-info/PKG-INFO
+writing dependency_links to simulation.egg-info/dependency_links.txt
+writing entry points to simulation.egg-info/entry_points.txt
+writing requirements to simulation.egg-info/requires.txt
+writing top-level names to simulation.egg-info/top_level.txt
+reading manifest file 'simulation.egg-info/SOURCES.txt'
+writing manifest file 'simulation.egg-info/SOURCES.txt'
+running build_ext
+Creating /home/khushant/Inverted_pendulum/install/simulation/lib/python3.10/site-packages/simulation.egg-link (link to .)
+Installing controller script to /home/khushant/Inverted_pendulum/install/simulation/lib/simulation
+
+Installed /home/khushant/Inverted_pendulum/build/simulation
+running symlink_data
+symbolically linking /home/khushant/Inverted_pendulum/build/simulation/resource/simulation -> /home/khushant/Inverted_pendulum/install/simulation/share/ament_index/resource_index/packages
+symbolically linking /home/khushant/Inverted_pendulum/build/simulation/package.xml -> /home/khushant/Inverted_pendulum/install/simulation/share/simulation
+symbolically linking /home/khushant/Inverted_pendulum/build/simulation/launch/demo.launch.py -> /home/khushant/Inverted_pendulum/install/simulation/share/simulation/launch
+symbolically linking /home/khushant/Inverted_pendulum/build/simulation/urdf/control.yaml -> /home/khushant/Inverted_pendulum/install/simulation/share/simulation
+symbolically linking /home/khushant/Inverted_pendulum/build/simulation/urdf/bridge.yaml -> /home/khushant/Inverted_pendulum/install/simulation/share/simulation
+symbolically linking /home/khushant/Inverted_pendulum/build/simulation/urdf/model.urdf -> /home/khushant/Inverted_pendulum/install/simulation/share/simulation

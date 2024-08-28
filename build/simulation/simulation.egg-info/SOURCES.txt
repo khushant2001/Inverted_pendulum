@@ -1,4 +1,3 @@
-LICENSE
 package.xml
 setup.cfg
 setup.py
@@ -13,9 +12,13 @@ launch/demo.launch.py
 resource/simulation
 simulation/__init__.py
 simulation/actuation.py
-test/test_copyright.py
-test/test_flake8.py
-test/test_pep257.py
+simulation.egg-info/PKG-INFO
+simulation.egg-info/SOURCES.txt
+simulation.egg-info/dependency_links.txt
+simulation.egg-info/entry_points.txt
+simulation.egg-info/requires.txt
+simulation.egg-info/top_level.txt
+simulation.egg-info/zip-safe
 urdf/bridge.yaml
 urdf/control.yaml
 urdf/model.urdf
