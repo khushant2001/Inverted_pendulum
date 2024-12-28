@@ -1,0 +1,27 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 100
+
+    joint_state_controller:
+      type: joint_state_controller/JointStateController
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    # forward_velocity_controller:
+    #   type: velocity_controllers/JointGroupVelocityController
+    #   joints:
+    #     - central_piece_joint
+    #     - pendulum_joint
+    #   interface_name: velocity
+
+joint_state_controller:
+  ros__parameters:
+    joints:
+      - central_piece_joint
+      - pendulum_joint
+    command_interfaces:
+      - velocity
+    state_interfaces:
+      - position
+      - velocity

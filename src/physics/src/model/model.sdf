@@ -1,0 +1,226 @@
+<?xml version="1.0" ?>
+<sdf version='1.11'>
+  <model name='my_robot'>
+
+    <link name='base_link'>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>0.20000000000000001</mass>
+        <inertia>
+          <ixx>0.20000000000000001</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.20000000000000001</iyy>
+          <iyz>0</iyz>
+          <izz>0.14999999999999999</izz>
+        </inertia>
+      </inertial>
+      <visual name='base_link_visual'>
+        <pose>0 0 1 1.5700000000000001 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.050000000000000003 0.050000000000000003 2</size>
+          </box>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+      <visual name='base_link_fixed_joint_lump__left_rod_visual_1'>
+        <pose>0 -1 0.5 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.050000000000000003 0.050000000000000003 1</size>
+          </box>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+      <visual name='base_link_fixed_joint_lump__right_rod_visual_2'>
+        <pose>0 1 0.5 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.050000000000000003 0.050000000000000003 1</size>
+          </box>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='central_piece_joint' type='prismatic'>
+      <pose relative_to='base_link'>0 0 0 0 0 0</pose>
+      <parent>base_link</parent>
+      <child>central_piece</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-0.90000000000000002</lower>
+          <upper>0.90000000000000002</upper>
+          <effort>1000</effort>
+          <velocity>0.5</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='central_piece'>
+      <pose relative_to='central_piece_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>0.10000000000000001</mass>
+        <inertia>
+          <ixx>0.10000000000000001</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.10000000000000001</iyy>
+          <iyz>0</iyz>
+          <izz>0.074999999999999997</izz>
+        </inertia>
+      </inertial>
+      <visual name='central_piece_visual'>
+        <pose>0 0 1.0600000000000001 1.5700000000000001 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.070000000000000007 0.070000000000000007 0.050000000000000003</size>
+          </box>
+        </geometry>
+        <material>
+          <diffuse>0.875 0.875 0.875 1</diffuse>
+          <ambient>0.875 0.875 0.875 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='pendulum_joint' type='revolute'>
+      <pose relative_to='central_piece'>0.059999999999999998 0 1.0600000000000001 0 0 0</pose>
+      <parent>central_piece</parent>
+      <child>pendulum</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-inf</lower>
+          <upper>inf</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+
+    <link name='pendulum'>
+      <pose relative_to='pendulum_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>0.10000000000000001</mass>
+        <inertia>
+          <ixx>0.10000000000000001</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.10000000000000001</iyy>
+          <iyz>0</iyz>
+          <izz>0.074999999999999997</izz>
+        </inertia>
+      </inertial>
+      <visual name='pendulum_visual'>
+        <pose>0 0 -0.14999999999999999 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.050000000000000003 0.050000000000000003 0.29999999999999999</size>
+          </box>
+        </geometry>
+        <material>
+          <diffuse>0 0.75000006 0 1</diffuse>
+          <ambient>0 0.75000006 0 1</ambient>
+        </material>
+      </visual>
+
+      <!-- IMU Sensor -->
+      <sensor name='imu_sensor' type='imu'>
+        <pose>0 0 0 0 0 0</pose> <!-- Adjust the pose relative to the link -->
+        <update_rate>100</update_rate> <!-- Frequency of data updates in Hz -->
+        <imu>
+          <angular_velocity>
+            <x>
+              <noise type="gaussian">
+                <mean>0</mean>
+                <stddev>0.01</stddev>
+              </noise>
+            </x>
+            <y>
+              <noise type="gaussian">
+                <mean>0</mean>
+                <stddev>0.01</stddev>
+              </noise>
+            </y>
+            <z>
+              <noise type="gaussian">
+                <mean>0</mean>
+                <stddev>0.01</stddev>
+              </noise>
+            </z>
+          </angular_velocity>
+          <linear_acceleration>
+            <x>
+              <noise type="gaussian">
+                <mean>0</mean>
+                <stddev>0.01</stddev>
+              </noise>
+            </x>
+            <y>
+              <noise type="gaussian">
+                <mean>0</mean>
+                <stddev>0.01</stddev>
+              </noise>
+            </y>
+            <z>
+              <noise type="gaussian">
+                <mean>0</mean>
+                <stddev>0.01</stddev>
+              </noise>
+            </z>
+          </linear_acceleration>
+        </imu>
+        <plugin filename="gz-sim-imu-system" name="gz::sim::systems::Imu">
+          <ros>
+            <namespace>/pendulum_pose</namespace>
+            <remapping>~/imu/data:=imu_data</remapping>
+          </ros>
+          <output_type>geometry_msgs/Pose</output_type>
+          <frameName>pendulum</frameName>
+        </plugin>
+      </sensor>
+    </link>
+
+    <frame name='left_rod_joint' attached_to='base_link'>
+      <pose>0 0 0 0 0 0</pose>
+    </frame>
+    <frame name='left_rod' attached_to='left_rod_joint'>
+      <pose>0 0 0 0 0 0</pose>
+    </frame>
+    <frame name='right_rod_joint' attached_to='base_link'>
+      <pose>0 0 0 0 0 0</pose>
+    </frame>
+    <frame name='right_rod' attached_to='right_rod_joint'>
+      <pose>0 0 0 0 0 0</pose>
+    </frame>
+
+    <!-- Add the joint publisher plugin -->
+    <plugin name="gz::sim::systems::JointStatePublisher" filename="libgz-sim8-joint-state-publisher-system.so">
+      <publish_rate>50</publish_rate>
+    </plugin>
+
+    <plugin name="gz::sim::systems::JointController" filename="libgz-sim8-joint-controller-system.so">
+      <publish_rate>50</publish_rate>
+      <joint_name>pendulum_joint</joint_name>
+      <topic>/pendulum_joint/command</topic>
+    </plugin>
+
+  </model>
+</sdf>
