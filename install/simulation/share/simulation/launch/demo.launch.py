@@ -1,1 +1,0 @@
-/home/khushant/Inverted_pendulum/build/simulation/launch/demo.launch.py

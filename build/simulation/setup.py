@@ -1,1 +1,0 @@
-/home/khushant/Inverted_pendulum/src/simulation/setup.py
