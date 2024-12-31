@@ -1,7 +1,7 @@
 import rclpy
 from rclpy.node import Node
 from rclpy.qos import QoSProfile
-from sensor_msgs.msg import JointState
+from std_msgs.msg import Float64
 from sensor_msgs.msg import Imu
 from rclpy.qos import QoSProfile, QoSReliabilityPolicy, QoSHistoryPolicy
 import math
@@ -11,21 +11,10 @@ class actuation(Node):
         super().__init__("Controller")
         qos_profil = QoSProfile(depth=10)
         self.imu_data = self.create_subscription(Imu,'/imu',self.imu_callback,qos_profile=qos_profil)
-        self.actuation = self.create_publisher(JointState,'/joint_command',qos_profile=qos_profil)
-        timer_period = 0.1
-        #self.timer = self.create_timer(timer_period, self.control)
-        self.roll_angle = None
-
-    def control(self):
-        msg = JointState()
-        now = self.get_clock().now()
-        msg.header.stamp = now.to_msg()
-        msg.name = ['central_piece_joint','pendulum_joint']
-        msg.position = [math.sin(self.get_clock().now().seconds_nanoseconds()[0]),0.0]
-        msg.velocity = [100.0, 100.0]
-        msg.effort = [100.0,100.0]
-        self.actuation.publish(msg)
-        self.get_logger().info("Actuating")
+        self.actuation = self.create_publisher(Float64,'/pendulum_joint_command',qos_profile=qos_profil)
+        self.timer_period = 0.02
+        self.timer = self.create_timer(self.timer_period, self.control)
+        self.roll_angle = 0
 
     def imu_callback(self,msg:Imu):
         self.get_logger().info("Getting the pose of the pendulum!")
@@ -33,13 +22,19 @@ class actuation(Node):
         y = msg.orientation.y
         z = msg.orientation.z
         w = msg.orientation.w
-        [roll, pitch, yaw] = quaternion_to_euler(w,x,y,z)
+        roll, pitch, yaw = quaternion_to_euler(w,x,y,z)
 
+        # Update the class variable!
         self.roll_angle = roll
-        self.get_logger().info(f'Roll angle = {yaw}')
+        self.get_logger().info(f'Angles = {roll}, {pitch}, {yaw}')
+
+    def control(self):
+        msg = Float64()
+        msg.data = pid(3.14 - self.roll_angle)
+        self.actuation.publish(msg)
+        self.get_logger().info("Actuating")
 
 # Defining the translation from quaternion to euler!
-
 def quaternion_to_euler(w,x, y, z):
     # Roll (x-axis rotation)
     sinr_cosp = 2 * (w * x + y * z)
@@ -62,18 +57,18 @@ def quaternion_to_euler(w,x, y, z):
 
 # Defining arrays to store the integral and error terms for pid controller!
 error_array = []
-integral = []
+integral = [0]
 
 # Designing the pid controller!
 def pid(error):
-    time_step = 0.1
-    kp = 1 # Proportional gain
-    ki = 1 # Integral gain
-    kd = 1 # Derivative gain
+    time_step = 0.02
+    kp = 10 # Proportional gain
+    ki = .2 # Integral gain
+    kd = 0 # Derivative gain
     error_array.append(error)
     integral.append(error_array[-1]*time_step + integral[-1])
-    derivative = (error_array[-1] - error_array[-2]) / time_step if len(error) > 1 else 0
-    control = kp * error[-1] + ki * integral[-1] + kd * derivative
+    derivative = (error_array[-1] - error_array[-2]) / time_step if len(error_array) > 1 else 0
+    control = kp * error_array[-1] + ki * integral[-1] + kd * derivative
     return control
 
 def main(args = None):

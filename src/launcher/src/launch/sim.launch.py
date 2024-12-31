@@ -26,25 +26,15 @@ def generate_launch_description():
             cmd=['gz', 'sim', urdf],
             output='screen'
         ),
-        # # Robot State Publisher to publish the robot state based on the URDF
-        # Node(
-        #     package='robot_state_publisher',
-        #     executable='robot_state_publisher',
-        #     name='robot_state_publisher',
-        #     output='screen',
-        #     parameters=[{
-        #         'use_sim_time': use_sim_time,
-        #         'robot_description': robot_desc
-        #     }],
-        #     arguments=[urdf]
-        # ),
+        
         # Your custom controller node
         Node(
             package='controller',
             executable='controller',
-            name='actuation',
+            name='controller',
             output='screen'
         ),
+        
         # Parameter bridge node for ROS 2 to Gazebo communication
         Node(
             package='ros_gz_bridge',
@@ -54,20 +44,5 @@ def generate_launch_description():
                 'qos_overrides./tf_static.publisher.durability': 'transient_local'
             }],
             output='screen'
-        ),
-        # # RViz for visualization
-        Node(
-            package='rviz2',
-            executable='rviz2',
-            name='rviz2',
-            output='screen'
         )
-        # ROS 2 Control Node to manage controllers
-        # Node(
-        #     package='controller_manager',
-        #     executable='ros2_control_node',
-        #     name='controller_manager',
-        #     parameters=[os.path.join(get_package_share_directory('config_files'), 'config/control.yaml')],
-        #     output='screen'
-        # )
     ])
