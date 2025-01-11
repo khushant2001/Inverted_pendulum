@@ -266,7 +266,7 @@
           <dynamics>
             <spring_reference>0</spring_reference>
             <spring_stiffness>0</spring_stiffness>   <!-- Small stiffness -->
-            <damping>0.1</damping>                     <!-- Small damping -->
+            <damping>0.01</damping>                     <!-- Small damping -->
           </dynamics>
         </axis>
       </joint>

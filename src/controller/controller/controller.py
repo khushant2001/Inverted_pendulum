@@ -70,8 +70,8 @@ class actuation(Node):
     # Designing the PI controller!
     def pid(self, error):
         time_step = self.timer_period
-        kp = 10 # Proportional gain
-        ki = 2 # Integral gain
+        kp = 1.5 # Proportional gain
+        ki = 1 # Integral gain
         self.error = error
         self.integral_sum = self.integral_sum + self.error*time_step
         control = kp * self.error + ki * self.integral_sum
