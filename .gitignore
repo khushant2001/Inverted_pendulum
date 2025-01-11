@@ -1,6 +1,6 @@
-
 # Ros2 directories that are not required on Github!
 
 /build/
 /install/
 /log/
+.vscode/
