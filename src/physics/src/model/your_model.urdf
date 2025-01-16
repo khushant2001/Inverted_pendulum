@@ -1,0 +1,172 @@
+<?xml version="1.0"?>
+<robot name="my_robot">
+
+
+    <!-- Materials -->
+    <material name="grey">
+        <color rgba="0.7 0.7 0.7 1"/>
+    </material>
+
+    <material name="green">
+        <color rgba="0 0.6 0 1"/>
+    </material>
+
+    <material name="white">
+        <color rgba="1 1 1 1"/>
+    </material>
+
+    <!-- Defining the world link -->
+    <link name="world"/>
+    
+    <!-- Links -->
+    <link name="base_link">
+        <inertial>
+            <mass value=".3"/> <!-- Combined mass of all components -->
+            <inertia ixx=".015" ixy="0" ixz="0" iyy=".015" iyz="0" izz=".015"/> <!-- Adjusted inertia -->
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </inertial>
+        <visual name="main_shaft">
+            <origin xyz="0 0 1" rpy="1.57 0 0"/>
+            <material name="white"/>
+            <geometry>
+                <box size=".05 .05 2"/>
+            </geometry>
+        </visual>
+        <visual name="left_rod">
+            <origin xyz="0 -1 .5" rpy="0 0 0"/>
+            <material name="white"/>
+            <geometry>
+                <box size=".05 .05 1"/>
+            </geometry>
+        </visual>
+        <visual name="right_rod">
+            <origin xyz="0 1 .5" rpy="0 0 0"/>
+            <material name="white"/>
+            <geometry>
+                <box size=".05 .05 1"/>
+            </geometry>
+        </visual>
+    </link>
+
+    <joint name="central_piece_joint" type="prismatic">
+        <parent link="base_link"/>
+        <child link="central_piece"/>
+        <origin xyz="0 0 1.06" rpy="0 0 0"/>
+        <axis xyz="0 1 0"/>
+        <limit effort="1000.0" lower="-.9" upper=".9" velocity="100.0"/>
+    </joint>
+    
+    <link name="central_piece">
+        <inertial>
+            <mass value=".1"/>
+            <inertia ixx=".1" ixy="0" ixz="0" iyy=".1" iyz="0" izz=".075"/>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="1.57 0 0"/>
+            <material name="grey"/>
+            <geometry>
+                <box size=".07 .07 .05"/>
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="1.57 0 0"/> <!-- Same as visual origin -->
+            <geometry>
+                <box size=".07 .07 .05"/> <!-- Same as visual geometry -->
+            </geometry>
+        </collision>
+    </link>
+
+
+    <joint name="pendulum_joint" type="revolute">
+        <parent link="central_piece"/>
+        <child link="pendulum"/>
+        <origin xyz=".06 0 0" rpy="0.1 0 0"/>
+        <axis xyz="1 0 0"/>
+        <limit lower="-3.14" upper="3.14" effort="5000.0" velocity="10000.0"/>
+        <dynamics damping="0.01" spring_reference="0" spring_stiffness="0"/>
+    </joint>
+    
+    <link name="pendulum">
+        <inertial>
+            <mass value="1"/>
+            <inertia izz=".0104" ixy="0" ixz="0" iyy=".0104" iyz="0" ixx=".0077"/>
+            <origin xyz="0 0 0.1" rpy="0 0 0" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 .1" rpy="0 0 0"/>
+            <material name="green"/>
+            <geometry>
+                <box size=".05 .05 0.3"/>
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 .1" rpy="0 0 0"/> <!-- Matches the visual origin -->
+            <geometry>
+                <box size=".05 .05 0.3"/> <!-- Matches the visual geometry -->
+            </geometry>
+        </collision>
+    </link>
+
+    <!-- IMU sensor inside the pendulum link -->
+    <gazebo reference="pendulum">
+        <sensor name="imu_sensor" type="imu">
+        <pose>0 0 0 0 0 0</pose> <!-- Relative pose of the sensor -->
+        <update_rate>500</update_rate> <!-- Frequency of data updates in Hz -->
+        <imu>
+            <angular_velocity>
+            <x>
+                <noise type="gaussian">
+                <mean>0</mean>
+                <stddev>0.01</stddev>
+                </noise>
+            </x>
+            <y>
+                <noise type="gaussian">
+                <mean>0</mean>
+                <stddev>0.01</stddev>
+                </noise>
+            </y>
+            <z>
+                <noise type="gaussian">
+                <mean>0</mean>
+                <stddev>0.01</stddev>
+                </noise>
+            </z>
+            </angular_velocity>
+            <linear_acceleration>
+            <x>
+                <noise type="gaussian">
+                <mean>0</mean>
+                <stddev>0.01</stddev>
+                </noise>
+            </x>
+            <y>
+                <noise type="gaussian">
+                <mean>0</mean>
+                <stddev>0.01</stddev>
+                </noise>
+            </y>
+            <z>
+                <noise type="gaussian">
+                <mean>0</mean>
+                <stddev>0.01</stddev>
+                </noise>
+            </z>
+            </linear_acceleration>
+        </imu>
+        </sensor>
+
+        <!-- Plugin to handle IMU data transmission -->
+        <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
+            <topicName>imu_data</topicName>
+        </plugin>
+    </gazebo>
+
+    <joint name="base_to_ground" type="fixed">
+        <parent link="world"/>
+        <child link="base_link"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+</robot>
