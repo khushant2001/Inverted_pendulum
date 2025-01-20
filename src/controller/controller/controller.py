@@ -20,11 +20,8 @@ class actuation(Node):
         self.timer = self.create_timer(self.timer_period, self.control)
         self.roll_angle = 0
 
-        # PID control variables
-        self.error = 0
-        self.error_previous = 0
+        # PI Control control variables
         self.integral_sum = 0
-        self.first_pass = True
 
     def imu_callback(self,msg:Imu):
         self.get_logger().info("Getting the pose of the pendulum!")
@@ -69,12 +66,10 @@ class actuation(Node):
 
     # Designing the PI controller!
     def pid(self, error):
-        time_step = self.timer_period
-        kp = 1.5 # Proportional gain
-        ki = 1 # Integral gain
-        self.error = error
-        self.integral_sum = self.integral_sum + self.error*time_step
-        control = kp * self.error + ki * self.integral_sum
+        kp = .27 # Proportional gain
+        ki = .26 # Integral gain
+        self.integral_sum = self.integral_sum + error*self.timer_period
+        control = kp * error + ki * self.integral_sum
         return control
     
     # Defining the translation from quaternion to euler!

@@ -275,6 +275,11 @@
       <plugin name="gz::sim::systems::JointController" filename="libgz-sim8-joint-controller-system.so">
         <publish_rate>500</publish_rate>
         <joint_name>central_piece_joint</joint_name>
+
+        <!-- If you want to use force commands instead of velocity -->
+        <use_force_commands>true</use_force_commands> 
+
+        <!-- Gazebo topic name -->
         <topic>/pendulum_joint/command</topic>
       </plugin>
 
