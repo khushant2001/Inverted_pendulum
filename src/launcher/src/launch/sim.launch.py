@@ -27,7 +27,7 @@ def generate_launch_description():
             output='screen'
         ),
         
-        # Your custom controller node
+        # Your custom controller node. Replace "controller" executable with "kalman_filter" if you are using that!
         Node(
             package='controller',
             executable='controller',
