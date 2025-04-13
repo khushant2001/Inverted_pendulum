@@ -271,7 +271,17 @@
         </axis>
       </joint>
 
-      <!-- Defining the plugin for controlling pendulum joint  -->
+      <!-- Defining the plugin to get the joint state of the prismatic joint  -->
+      <plugin name="gz::sim::systems::JointStatePublisher" filename="libgz-sim8-joint-state-publisher-system.so">
+        <ros> 
+          <namespace>/prismatic_joint</namespace>
+        </ros>
+        <joint_name>central_piece_joint</joint_name>
+        <topic>/prismatic_joint/state</topic>
+        <publish_rate>500</publish_rate>
+      </plugin>
+
+      <!-- Defining the plugin for controlling prismatic joint  -->
       <plugin name="gz::sim::systems::JointController" filename="libgz-sim8-joint-controller-system.so">
         <publish_rate>500</publish_rate>
         <joint_name>central_piece_joint</joint_name>

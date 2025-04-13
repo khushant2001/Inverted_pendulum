@@ -4,7 +4,7 @@ import rclpy
 from rclpy.node import Node
 from rclpy.qos import QoSProfile
 from std_msgs.msg import Float64
-from sensor_msgs.msg import Imu
+from sensor_msgs.msg import Imu, JointState
 from rclpy.qos import QoSProfile
 import math
 from scipy.spatial.transform import Rotation as R
@@ -15,10 +15,16 @@ class actuation(Node):
         super().__init__("Controller")
         qos_profil = QoSProfile(depth=10)
         self.imu_data = self.create_subscription(Imu,'/imu',self.imu_callback,qos_profile=qos_profil)
+        self.prismatic_state = self.create_subscription(JointState,'/prismatic_joint/state',self.prismatic_callback,qos_profile=qos_profil)
         self.actuation = self.create_publisher(Float64,'/pendulum_joint_command',qos_profile=qos_profil)
         self.timer_period = 0.002
         self.timer = self.create_timer(self.timer_period, self.control)
+
+        # Defining variables to use later!
         self.roll_angle = 0
+        self.roll_vel = 0
+        self.prismatic_x = 0
+        self.prismatic_x_vel = 0
 
         # PI Control control variables
         self.integral_sum = 0
@@ -51,27 +57,68 @@ class actuation(Node):
         R_global = np.dot(R_pendulum, R_imu)
 
         # Convert the global rotation matrix back to Euler angles (roll, pitch, yaw)
-        roll, pitch, yaw = R.from_matrix(R_global).as_euler('xyz', degrees=True)
+        roll, _,_ = R.from_matrix(R_global).as_euler('xyz', degrees=True)
+        
+        # Angular velocity in the IMU (local) frame
+        ang_vel_local = np.array([
+            msg.angular_velocity.x,
+            msg.angular_velocity.y,
+            msg.angular_velocity.z
+        ])
+
+        # Convert angular velocity to global/world frame
+        ang_vel_global = R_imu @ ang_vel_local
+
+        # Roll velocity in the global frame (x-axis)
+        self.roll_vel = ang_vel_global[0]
 
         # Update the class variable
         self.roll_angle = roll
-        self.get_logger().info(f'Global Angles = {roll}, {pitch}, {yaw}')
+        self.get_logger().info(f'Roll angle = {roll}, roll velocity = {self.roll_vel}')
 
+    def prismatic_callback(self, msg = JointState):
+
+        # Update the class variables!
+        self.prismatic_x = msg._position[0]
+        self.prismatic_x_vel = msg.velocity[0]
+
+        self.get_logger().info(f'Prismatic joint pos = {self.prismatic_x}, vel = {self.prismatic_x_vel}')
+    
     # Get the acutation from the PI controller
     def control(self):
         msg = Float64()
-        msg.data = self.pid(-self.roll_angle)
+
+        # Apply PI control
+        #msg.data = self.pi(-self.roll_angle)
+
+        # Apply LQR control!
+        msg.data = self.lqr()
+
+        # Publish and log the message!
         self.actuation.publish(msg)
         self.get_logger().info(f'Actuating = {msg.data}')
 
     # Designing the PI controller!
-    def pid(self, error):
+    def pi(self, error):
         kp = .27 # Proportional gain
         ki = .26 # Integral gain
         self.integral_sum = self.integral_sum + error*self.timer_period
         control = kp * error + ki * self.integral_sum
         return control
     
+    def lqr(self):
+
+        # Defining the lqr gains => K
+        K = np.array([
+            [0, 1.5, 0, 0.4]
+        ])
+        
+        # Define the state
+        state = np.array([
+            [self.prismatic_x],[self.roll_angle],[self.prismatic_x_vel],[self.roll_vel]
+        ])
+        control = -K @ state
+        return control.item()
     # Defining the translation from quaternion to euler!
     def quaternion_to_euler(self, w, x, y, z):
         # Roll (x-axis rotation)
