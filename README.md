@@ -18,7 +18,8 @@ Rqt_graph
 
 K_p = 0.27, K_I = 0.26
 
-https://github.com/user-attachments/assets/0ed8b2f4-3ec8-41a2-ab88-c8737161e9b4
+https://github.com/user-attachments/assets/69c15af6-7425-4cd0-9984-47cdd10ed034
+
 
 # 2. LQR (Linear Quadratic Regulator)
 
